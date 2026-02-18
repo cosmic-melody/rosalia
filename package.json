@@ -1,14 +1,16 @@
 {
   "name": "rosalia",
-  "module": "index.ts",
-  "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
+  "private": true,
+  "workspaces": ["server", "client", "shared"],
   "scripts": {
-    "start": "bun src/index.ts"
+    "dev": "concurrently \"bun run dev:server\" \"bun run dev:client\"",
+    "dev:server": "bun run --cwd server dev",
+    "dev:client": "bun run --cwd client dev",
+    "db:generate": "bun run --cwd server db:generate",
+    "db:migrate": "bun run --cwd server db:migrate",
+    "db:studio": "bun run --cwd server db:studio"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
